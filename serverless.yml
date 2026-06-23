@@ -1,10 +1,25 @@
-service: studio-backend
+service: clikz-backend
+
 provider:
   name: aws
   runtime: nodejs18.x
-  region: us-east-1 # or your preferred region
+  region: us-east-1 # Change to your preferred region
+  stage: prod
+  environment:
+    MONGODB_URI: ${env:MONGODB_URI}
+    CLIENT_URL: https://app.clikzweddingfilms.in
+    S3_BUCKET: clikz-wedding-photos
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - rekognition:*
+            - s3:*
+          Resource: "*"
+
 functions:
   api:
     handler: index.handler
     events:
-      - httpApi: '*'
+      - httpApi: '*' # This creates the API Gateway automatically
