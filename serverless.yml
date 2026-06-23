@@ -1,0 +1,10 @@
+service: studio-backend
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1 # or your preferred region
+functions:
+  api:
+    handler: index.handler
+    events:
+      - httpApi: '*'
